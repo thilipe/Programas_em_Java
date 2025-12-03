@@ -26,6 +26,10 @@ public class ProductController {
             case "DELETE":
                 return service.delete(event);
 
+            case "PUT":
+                return service.update(event);
+
+
             default:
                 return new APIGatewayProxyResponseEvent()
                         .withStatusCode(400)

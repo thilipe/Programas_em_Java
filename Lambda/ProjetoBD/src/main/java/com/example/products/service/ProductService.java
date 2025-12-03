@@ -4,6 +4,7 @@ import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import com.example.products.dto.CreateProductRequest;
 import com.example.products.dto.ProductResponse;
+import com.example.products.dto.UpdateProductRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.*;
@@ -87,4 +88,36 @@ public class ProductService {
                 .withStatusCode(500)
                 .withBody("{\"error\":\"" + message + "\"}");
     }
+
+    public APIGatewayProxyResponseEvent update(APIGatewayProxyRequestEvent event) {
+        try {
+            int id = Integer.parseInt(event.getPathParameters().get("id"));
+
+            ProductResponse product = database.get(id);
+
+            if (product == null) {
+                return new APIGatewayProxyResponseEvent()
+                        .withStatusCode(404)
+                        .withBody("{\"error\":\"Product not found\"}");
+            }
+
+            // Converter JSON → DTO
+            UpdateProductRequest dto = mapper.readValue(event.getBody(), UpdateProductRequest.class);
+
+            // Atualizar valores
+            product.setName(dto.getName());
+            product.setPrice(dto.getPrice());
+
+            // Salvar de volta
+            database.put(id, product);
+
+            return new APIGatewayProxyResponseEvent()
+                    .withStatusCode(200)
+                    .withBody(mapper.writeValueAsString(product));
+
+        } catch (Exception e) {
+            return error(e.getMessage());
+        }
+    }
+
 }
