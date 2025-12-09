@@ -6,20 +6,20 @@ import com.example.products.dto.CreateProductRequest;
 import com.example.products.dto.ProductResponse;
 import com.example.products.dto.UpdateProductRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProductService {
 
     private final ObjectMapper mapper = new ObjectMapper();
 
-    // SIMULA UM BANCO DE DADOS IN-MEMORY (por enquanto)
+    // SIMULA UM BANCO DE DADOS IN-MEMORY
     private static final Map<Integer, ProductResponse> database = new HashMap<>();
     private static int idCounter = 1;
 
     public APIGatewayProxyResponseEvent create(APIGatewayProxyRequestEvent event) {
         try {
-            // converte JSON → DTO
+            // converte JSON para DTO
             CreateProductRequest dto = mapper.readValue(event.getBody(), CreateProductRequest.class);
 
             ProductResponse product = new ProductResponse(idCounter++, dto.getName(), dto.getPrice());
@@ -101,7 +101,7 @@ public class ProductService {
                         .withBody("{\"error\":\"Product not found\"}");
             }
 
-            // Converter JSON → DTO
+            // Converter JSON para DTO
             UpdateProductRequest dto = mapper.readValue(event.getBody(), UpdateProductRequest.class);
 
             // Atualizar valores
