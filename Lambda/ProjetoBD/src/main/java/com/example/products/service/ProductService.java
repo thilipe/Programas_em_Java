@@ -6,6 +6,8 @@ import com.example.products.dto.CreateProductRequest;
 import com.example.products.dto.ProductResponse;
 import com.example.products.dto.UpdateProductRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
