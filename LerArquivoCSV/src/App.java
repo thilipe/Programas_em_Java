@@ -28,9 +28,11 @@ public class App {
              BufferedWriter bw = new BufferedWriter(new FileWriter(summaryFile.toString()))) {
 
             String line = br.readLine();
-
+            int i = 0;
+            bw.newLine();
             while (line != null) {
 
+                i += 1;
                 String[] fields = line.split(",");
                 String name = fields[0];
                 double price = Double.parseDouble(fields[1]);
@@ -38,7 +40,7 @@ public class App {
 
                 Product p = new Product(name, price, quantity);
 
-                bw.write(p.getName() + "," + String.format("%.2f", p.total()));
+                bw.write(i + "," +p.getName() + "," + String.format("%.2f", p.total()));
                 bw.newLine();
 
                 line = br.readLine();
