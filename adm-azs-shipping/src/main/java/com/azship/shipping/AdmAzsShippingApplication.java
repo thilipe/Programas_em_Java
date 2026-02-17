@@ -1,4 +1,4 @@
-package com.azship.adm_azs_shipping;
+package com.azship.shipping;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

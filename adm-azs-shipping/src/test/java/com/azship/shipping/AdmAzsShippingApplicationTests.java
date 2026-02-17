@@ -1,4 +1,4 @@
-package com.azship.adm_azs_shipping;
+package com.azship.shipping;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
